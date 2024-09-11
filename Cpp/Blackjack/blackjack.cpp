@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <random>
 #include "visual.hpp"
+#include <ctime>
 
 void printStack(vector<string> Stack);
 void printRemStack(vector<string> Stack, int * n);
@@ -26,9 +27,23 @@ int main() {
 
     while(play) {
 
-        int n;
+
         cout << "Enter Number of Decks in Stack (Standard Amount is 6 Decks): ";
-        cin >> n;
+
+
+        //could also input string n then look through each char to see if a number through ascii table
+        int n;
+        bool validInput = true;
+        while(validInput) {
+            cin >> n;
+            if (cin.fail()) {
+                cout << "Invalid input - Only enter an integer." << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
+            else validInput=false;
+        }
+
 
 
 
@@ -42,8 +57,8 @@ int main() {
         }
 
 
-        random_device rd;
-        mt19937 g(rd());
+        unsigned seed = static_cast<unsigned>(time(nullptr));
+        mt19937 g(seed);
         shuffle(Stack.begin(), Stack.end(), g);
         ///printStack(Stack);
 
@@ -91,7 +106,7 @@ bool Game(vector<string> Stack) {
     while(game_flag) {
         //init dealer and personal hand:
         int threshold = Stack.size() - insert_card;
-        cout << threshold << endl;
+        //cout << threshold << endl;
         vector<string> person;
         vector<string> dealer;
         Hand playerHand = Hand(person);
@@ -101,13 +116,28 @@ bool Game(vector<string> Stack) {
         if(num_draws > (threshold)) {
             break;
         }
+
         string in;
-        cout << "next hand?";
+        cout << "Next Hand? (Type \"Yes\"/\"y\" to continue, or \"Quit\"/\"q\" to quit)" << endl;
+        bool prompt = true;
+        while(prompt) {
         cin >> in;
-        if(in == "Yes") {
-            game_flag = true;
+        if(in == "Yes" || in == "y" || in == "Quit" || in == "q") {
+            if(in == "Yes" || in == "y") {
+                game_flag = true;
+                prompt = false;
+            }
+            else {
+                game_flag = false;
+                return false;
+            }
         }
-        else return false;
+        else {
+            cout << "Invalid Response! (Type \"Yes\"/\"y\" to continue, or \"Quit\"/\"q\" to quit)" << endl;
+            prompt = true;
+
+        }
+        }
         }
     string in;
     cout << "Out of Cards, Reshuffle? (Enter Yes to Continue, Any Other Entry To Quit)";
@@ -140,7 +170,7 @@ void startRound(vector<string> Stack, int * n, Hand p, Hand d) {
             d.printCurHand(true);
             p.printCurHand(false);
         }
-        else {
+        else if (input == "S"){
             break;
         }
     }
@@ -152,7 +182,7 @@ void startRound(vector<string> Stack, int * n, Hand p, Hand d) {
         cout << "Dealer(Intermittent): " << endl;
         d.printCurHand(false);
     }
-    while(d.value < 16) {
+    while(d.value <= 16) {
         cout << "Dealer(Intermittent): " << endl;
         d.printCurHand(false);
         d.drawCard(Stack, n);
