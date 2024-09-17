@@ -99,7 +99,7 @@ fn cal_len(s: String) -> (String, usize) {
 fn takes_and_gives(a_string: String) -> String { // a_string comes into
     // scope
 
-a_string  // a_string is returned and moves out to the calling function
+    a_string  // a_string is returned and moves out to the calling function
 }
 
 fn gives_ownership() -> String {
