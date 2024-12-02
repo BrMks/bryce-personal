@@ -54,22 +54,14 @@ public:
 
 void Hand::printCurHand(bool dealer) {
     vector<string>::iterator it;
-/*
+
     string top = "┌────────┐";
     string mid = "│        │";
     string bot = "└────────┘";
 
     string hidden = "│XXXXXXXX│";
-*/
 
-    string top = "----------";
-    string mid = "|        |";
-    string bot = "----------";
-
-    string hidden = "|XXXXXXXX|";
-
-
-    /*vector<string> spade = {  "│  ,'`.  │", 
+    vector<string> spade = {  "│  ,'`.  │", 
                               "│ (_,._) │", 
                               "│   /\\   │"};
     vector<string> heart = {  "│  _  _  │",
@@ -81,20 +73,6 @@ void Hand::printCurHand(bool dealer) {
     vector<string> club = {   "│  (_)   │",
                               "│ (_Y_)  │",
                               "│   │    │"};
-    */
-
-   vector<string> spade = {  "|  ,'`.  |", 
-                              "| (_,._) |", 
-                              "|   /\\   |"};
-    vector<string> heart = {  "|  _  _  |",
-                              "| ( `' ) |",
-                              "|  `.,'  |"};
-    vector<string> diamond = {"|   /\\   |",
-                              "|  <  >  |",
-                              "|   \\/   |"};
-    vector<string> club = {   "|  (_)   |",
-                              "| (_Y_)  |",
-                              "|   |    |"};
 
     vector<string> mid_complete(7);
     vector<string>::iterator mit;
@@ -108,16 +86,14 @@ void Hand::printCurHand(bool dealer) {
                 }
                 
 
-                string num_top = "|       |"; //2nd char num to be inserted 
-                string num_bot = "|       |"; //10th char num to be inserted
+                string num_top = "│       │"; //2nd char num to be inserted 
+                string num_bot = "│       │"; //10th char num to be inserted
 
                 string cur_card = *it;
 
 
-        //        num_top.insert(num_top.begin() + 3, cur_card[0]);
-        //        num_bot.insert(num_bot.begin() + 10, cur_card[0]);
-                num_top.insert(num_top.begin() + 1, cur_card[0]);
-                num_bot.insert(num_bot.begin() + 8, cur_card[0]);
+                num_top.insert(num_top.begin() + 3, cur_card[0]);
+                num_bot.insert(num_bot.begin() + 10, cur_card[0]);
                 if(mit == mid_complete.begin()) {
                     *mit += num_top;
                 }
@@ -195,7 +171,6 @@ void Hand::printCurHand(bool dealer) {
 
     if(!dealer) {
         cout << "Value: " << value << endl;
-        update_value();
         if(value>21) cout << "BUST!" << endl;
         else if (value == 21 && cur_hand.size() == 2) cout << "Blackjack!" << endl;
     }
