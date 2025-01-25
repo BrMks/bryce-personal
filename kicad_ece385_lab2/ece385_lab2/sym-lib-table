@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "ece385_lab2")(type "KiCad")(uri "${KIPRJMOD}/ece385_lab2.kicad_sym")(options "")(descr ""))
+)
